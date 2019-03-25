@@ -1,0 +1,26 @@
+apply plugin: 'com.android.application'
+
+def build = rootProject.ext.build
+def lib = rootProject.ext.lib
+
+android {
+    compileSdkVersion build.compileSdkVersion
+    defaultConfig {
+        applicationId "com.karic.sdk.sdkdemo"
+        minSdkVersion build.minSdkVersion
+        targetSdkVersion build.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation lib.app_compat
+    implementation project(path: ':sdk_ad')
+}

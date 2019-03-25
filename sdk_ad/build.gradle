@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+def build = rootProject.ext.build
+def lib = rootProject.ext.lib
+
+ext {
+    sdk = [
+            vcode: 10000,
+            vname: '1.0.0'
+    ]
+}
+
+android {
+    compileSdkVersion build.compileSdkVersion
+    defaultConfig {
+        minSdkVersion build.minSdkVersion
+        targetSdkVersion build.targetSdkVersion
+        versionCode sdk.vcode
+        versionName sdk.vname
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation lib.app_compat
+    implementation lib.fb_ad_sdk
+    implementation lib.play_services_ads
+    implementation lib.recycler_view
+}
