@@ -125,5 +125,13 @@ public final class AdSdk {
                     .setAdmobAppId(Utils.TEST_ADMOB_APP_ID);
             return settings.build();
         }
+
+        public static AdSdk testFbOnly() {
+            Settings settings = new Settings();
+            settings.supportFb(true)
+                    .supportAdmob(false)
+                    .setAdmobFirst(false);
+            return settings.build();
+        }
     }
 }

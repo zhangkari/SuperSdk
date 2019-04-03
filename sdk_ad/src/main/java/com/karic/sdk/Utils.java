@@ -4,6 +4,8 @@ class Utils {
     static final String TEST_ADMOB_APP_ID = "ca-app-pub-3940256099942544~3347511713";
     static final String TEST_ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
     static final String TEST_ADMOB_SPLASH_ID = "ca-app-pub-3940256099942544/1033173712";
+    static final String TEST_FB_BANNER_ID = "1423813157761799_1423814991094949";
+    static final String TEST_FB_SPLASH_ID = "1423813157761799_1423813467761768";
 
     public static boolean isValidAid(String aid) {
         return aid != null && aid.length() > 8;

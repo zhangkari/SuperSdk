@@ -10,7 +10,7 @@ public class DemoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        adSdk = AdSdk.Settings.testAdmobOnly();
+        adSdk = AdSdk.Settings.testFbOnly();
         adSdk.init(this);
     }
 

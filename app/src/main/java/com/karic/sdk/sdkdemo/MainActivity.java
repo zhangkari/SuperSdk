@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d("MainActivity", "onClick");
-                adSdk.showSplashAd(v.getContext(), AidBox.testAdmobSplashOnly());
-                adSdk.showBannerAd(adContainer, AidBox.testAdmobBannerOnly());
+                adSdk.showSplashAd(v.getContext(), AidBox.testFbSplashOnly());
+                adSdk.showBannerAd(adContainer, AidBox.testFbBannerOnly());
             }
         });
     }
