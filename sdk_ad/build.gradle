@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 def build = rootProject.ext.build
 def lib = rootProject.ext.lib
@@ -37,4 +38,16 @@ dependencies {
     implementation lib.fb_ad_sdk
     implementation lib.play_services_ads
     implementation lib.recycler_view
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        def mavenDirPath = file(LOCAL_MAVEN_DIR)
+        repository(url: "file://${mavenDirPath.absolutePath}")
+        pom.project {
+            groupId lib.id
+            artifactId lib.name
+            version lib.versionName
+        }
+    }
 }
