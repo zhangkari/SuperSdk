@@ -7,7 +7,9 @@ def lib = rootProject.ext.lib
 ext {
     sdk = [
             vcode: 10000,
-            vname: '1.0.0'
+            vname: '1.0.0',
+            id   : 'com.karic.sdk.ad',
+            name : 'superad'
     ]
 }
 
@@ -45,9 +47,9 @@ uploadArchives {
         def mavenDirPath = file(LOCAL_MAVEN_DIR)
         repository(url: "file://${mavenDirPath.absolutePath}")
         pom.project {
-            groupId lib.id
-            artifactId lib.name
-            version lib.versionName
+            groupId sdk.id
+            artifactId sdk.name
+            version sdk.vname
         }
     }
 }
