@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 def build = rootProject.ext.build
-def lib = rootProject.ext.lib
 
 android {
     compileSdkVersion build.compileSdkVersion
@@ -21,6 +20,5 @@ android {
 }
 
 dependencies {
-    implementation lib.app_compat
     implementation project(path: ':sdk_ad')
 }

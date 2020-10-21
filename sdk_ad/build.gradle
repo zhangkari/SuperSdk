@@ -1,55 +1,49 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
 
 def build = rootProject.ext.build
 def lib = rootProject.ext.lib
 
-ext {
-    sdk = [
-            vcode: 10000,
-            vname: '1.0.0',
-            id   : 'com.karic.sdk.ad',
-            name : 'superad'
-    ]
-}
+def USER = "zhangkari"
+def GROUP = "com.tomtom.sdk.ad"
+def ARTIFACT = "adsdk"
+def VCode = 10000
+def VName = "1.0.0"
+def DESCRIPTION = "An ad sdk integrate both google and facebook"
+def URL = "https://github.com/zhangkari/SuperSdk"
 
 android {
     compileSdkVersion build.compileSdkVersion
     defaultConfig {
         minSdkVersion build.minSdkVersion
         targetSdkVersion build.targetSdkVersion
-        versionCode sdk.vcode
-        versionName sdk.vname
+        versionCode VCode
+        versionName VName
     }
 
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    publish {
+        userOrg = USER
+        groupId = GROUP
+        artifactId = ARTIFACT
+        publishVersion = VName
+        desc = DESCRIPTION
+        website = URL
     }
 }
 
 dependencies {
-    implementation lib.app_compat
     implementation lib.fb_ad_sdk
     implementation lib.play_services_ads
-    implementation lib.recycler_view
-}
-
-uploadArchives {
-    repositories.mavenDeployer {
-        def mavenDirPath = file(LOCAL_MAVEN_DIR)
-        repository(url: "file://${mavenDirPath.absolutePath}")
-        pom.project {
-            groupId sdk.id
-            artifactId sdk.name
-            version sdk.vname
-        }
-    }
 }

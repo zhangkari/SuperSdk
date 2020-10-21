@@ -1,8 +1,6 @@
 package com.karic.sdk;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.ads.AdError;
@@ -16,7 +14,7 @@ public class SplashAd {
     private InterstitialAd admobAd;
     private com.facebook.ads.InterstitialAd fbAd;
 
-    public SplashAd(@NonNull Context context, @NonNull AdSdk.Settings settings, @NonNull AidBox box) {
+    public SplashAd(Context context, AdSdk.Settings settings, AidBox box) {
         this.settings = settings;
         if (settings.supportAdmob && Utils.isValidAid(box.admobId)) {
             admobAd = new InterstitialAd(context);
@@ -35,7 +33,7 @@ public class SplashAd {
         load(null, autoShow);
     }
 
-    public void load(@Nullable AdListener listener, boolean autoShow) {
+    public void load(AdListener listener, boolean autoShow) {
         if (settings.admobFirst) {
             if (admobAd != null) {
                 setAdmobAdListener(admobAd, true, listener, autoShow);
@@ -51,7 +49,7 @@ public class SplashAd {
         }
     }
 
-    private void setAdmobAdListener(@NonNull final InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
+    private void setAdmobAdListener(final InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
         ad.setAdListener(new com.google.android.gms.ads.AdListener() {
             @Override
             public void onAdFailedToLoad(int code) {
@@ -87,7 +85,7 @@ public class SplashAd {
         ad.loadAd(new AdRequest.Builder().build());
     }
 
-    private void setFbAdListener(@NonNull com.facebook.ads.InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
+    private void setFbAdListener(com.facebook.ads.InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
         ad.setAdListener(new InterstitialAdListener() {
             @Override
             public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {

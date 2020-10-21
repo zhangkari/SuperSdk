@@ -1,7 +1,6 @@
 package com.karic.sdk;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.facebook.ads.AudienceNetworkAds;
@@ -13,11 +12,11 @@ public final class AdSdk {
     private SplashAd splashAd;
     private BannerAdView bannerAdView;
 
-    AdSdk(@NonNull Settings settings) {
+    AdSdk(Settings settings) {
         this.settings = settings;
     }
 
-    public void init(@NonNull Context context) {
+    public void init(Context context) {
         if (!settings.supportAdmob && !settings.supportFb) {
             return;
         }
@@ -47,7 +46,7 @@ public final class AdSdk {
         }
     }
 
-    public void showBannerAd(@NonNull ViewGroup parent, @NonNull AidBox aidBox) {
+    public void showBannerAd(ViewGroup parent, AidBox aidBox) {
         if (bannerAdView != null) {
             bannerAdView.destroy();
         }

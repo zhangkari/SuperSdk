@@ -5,16 +5,24 @@ import android.app.Application;
 import com.karic.sdk.AdSdk;
 
 public class DemoApp extends Application {
-    private AdSdk adSdk;
+    private AdSdk adSdkFb;
+    private AdSdk adSdkAdmob;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        adSdk = AdSdk.Settings.testFbOnly();
-        adSdk.init(this);
+        adSdkFb = AdSdk.Settings.testFbOnly();
+        adSdkFb.init(this);
+
+        adSdkAdmob = AdSdk.Settings.testAdmobOnly();
+        adSdkAdmob.init(this);
     }
 
-    public AdSdk getAdSdk() {
-        return adSdk;
+    public AdSdk getAdSdkTestFbOnly() {
+        return adSdkFb;
+    }
+
+    public AdSdk getAdSdkTestAdmobOnly() {
+        return adSdkAdmob;
     }
 }

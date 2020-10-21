@@ -1,8 +1,6 @@
 package com.karic.sdk;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.facebook.ads.Ad;
@@ -17,7 +15,7 @@ public class BannerAdView {
     private AdView admobView;
     private com.facebook.ads.AdView fbView;
 
-    public BannerAdView(@NonNull Context context, @NonNull AdSdk.Settings settings, @NonNull AidBox box) {
+    public BannerAdView(Context context, AdSdk.Settings settings, AidBox box) {
         this.settings = settings;
         if (settings.supportFb && Utils.isValidAid(box.fbId)) {
             fbView = new com.facebook.ads.AdView(context, box.fbId, AdSize.BANNER_HEIGHT_50);
@@ -29,11 +27,11 @@ public class BannerAdView {
         }
     }
 
-    public void load(@NonNull ViewGroup parent) {
+    public void load(ViewGroup parent) {
         load(parent, null);
     }
 
-    public void load(@NonNull ViewGroup parent, @Nullable AdListener listener) {
+    public void load(ViewGroup parent, AdListener listener) {
         if (settings.admobFirst) {
             if (settings.supportAdmob && admobView != null) {
                 loadAdmobAdView(admobView, parent, true, listener);
@@ -49,7 +47,7 @@ public class BannerAdView {
         }
     }
 
-    private void loadFbAdView(@NonNull final com.facebook.ads.AdView view, final ViewGroup parent, final boolean hasNext, final AdListener listener) {
+    private void loadFbAdView(final com.facebook.ads.AdView view, final ViewGroup parent, final boolean hasNext, final AdListener listener) {
         view.setAdListener(new com.facebook.ads.AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
@@ -88,7 +86,7 @@ public class BannerAdView {
         view.loadAd();
     }
 
-    private void loadAdmobAdView(@NonNull final AdView view, final ViewGroup parent, final boolean hasNext, final AdListener listener) {
+    private void loadAdmobAdView(final AdView view, final ViewGroup parent, final boolean hasNext, final AdListener listener) {
         view.setAdListener(new com.google.android.gms.ads.AdListener() {
             @Override
             public void onAdLoaded() {
