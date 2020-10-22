@@ -3,12 +3,12 @@
 ext {
     build = [
             compileSdkVersion: 28,
-            minSdkVersion    : 14,
+            minSdkVersion    : 16,
             targetSdkVersion : 28
     ]
 
     lib = [
             fb_ad_sdk        : 'com.facebook.android:audience-network-sdk:5.2.1',
-            play_services_ads: 'com.google.android.gms:play-services-ads:17.2.0',
+            play_services_ads: 'com.google.android.gms:play-services-ads:19.5.0',
     ]
 }

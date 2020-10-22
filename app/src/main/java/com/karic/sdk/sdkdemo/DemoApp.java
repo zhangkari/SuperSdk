@@ -11,18 +11,18 @@ public class DemoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        adSdkFb = AdSdk.Settings.testFbOnly();
+        adSdkFb = AdSdk.Settings.testFb();
         adSdkFb.init(this);
 
-        adSdkAdmob = AdSdk.Settings.testAdmobOnly();
+        adSdkAdmob = AdSdk.Settings.testAdmob();
         adSdkAdmob.init(this);
     }
 
-    public AdSdk getAdSdkTestFbOnly() {
+    public AdSdk getAdSdkTestFb() {
         return adSdkFb;
     }
 
-    public AdSdk getAdSdkTestAdmobOnly() {
+    public AdSdk getAdSdkTestAdmob() {
         return adSdkAdmob;
     }
 }

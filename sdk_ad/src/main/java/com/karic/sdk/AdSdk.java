@@ -1,12 +1,23 @@
 package com.karic.sdk;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 public final class AdSdk {
+    private static final String TAG = "AdSdk";
 
     private Settings settings;
     private SplashAd splashAd;
@@ -72,6 +83,27 @@ public final class AdSdk {
         }
     }
 
+    public void showNativeAd(@NonNull final View container, @NonNull AidBox aid, @NonNull final NativeAd.AdListener listener) {
+        AdLoader adLoader = new AdLoader.Builder(container.getContext(), aid.admobId)
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd data) {
+                        listener.onSuccess(container, new NativeAd(data));
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError error) {
+                        Log.d(TAG, "error:" + error.getMessage());
+                        listener.onError(container, error.getCode());
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder().build())
+                .build();
+
+        adLoader.loadAds(new AdRequest.Builder().build(), 1);
+    }
+
     private void initAdmob(Context context, String admobAppId) {
         MobileAds.initialize(context, admobAppId);
     }
@@ -116,7 +148,7 @@ public final class AdSdk {
             return new AdSdk(this);
         }
 
-        public static AdSdk testAdmobOnly() {
+        public static AdSdk testAdmob() {
             Settings settings = new Settings();
             settings.supportFb(false)
                     .supportAdmob(true)
@@ -125,7 +157,7 @@ public final class AdSdk {
             return settings.build();
         }
 
-        public static AdSdk testFbOnly() {
+        public static AdSdk testFb() {
             Settings settings = new Settings();
             settings.supportFb(true)
                     .supportAdmob(false)

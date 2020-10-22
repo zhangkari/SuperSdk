@@ -22,7 +22,7 @@ public class BannerAdView {
         }
         if (settings.supportAdmob && Utils.isValidAid(box.admobId)) {
             admobView = new AdView(context);
-            admobView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
+            admobView.setAdSize(com.google.android.gms.ads.AdSize.LARGE_BANNER);
             admobView.setAdUnitId(box.admobId);
         }
     }
