@@ -130,11 +130,19 @@ public class BannerAd extends SuperAd {
 
     public void destroy() {
         if (fbView != null) {
+            if (fbView.getParent() != null) {
+                ((ViewGroup) fbView.getParent()).removeAllViews();
+            }
             fbView.destroy();
+            fbView = null;
         }
         if (admobView != null) {
+            if (admobView.getParent() != null) {
+                ((ViewGroup) admobView.getParent()).removeAllViews();
+            }
             admobView.setAdListener(null);
             admobView.destroy();
+            admobView = null;
         }
     }
 

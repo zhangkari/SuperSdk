@@ -73,10 +73,6 @@ public class SuperAdSdk {
             splashAd = new SplashAd(context, AidBox.releaseSplash(adConfig));
         }
 
-        if (adConfig.enableBanner) {
-            bannerAd = new BannerAd(context, AidBox.releaseBanner(adConfig));
-        }
-
         if (adConfig.enableNative) {
             nativeAd = new NativeAd();
         }
@@ -102,6 +98,7 @@ public class SuperAdSdk {
 
     public void showBannerAd(View parent) {
         if (adConfig.enableBanner) {
+            bannerAd = new BannerAd(parent.getContext(), AidBox.releaseBanner(adConfig));
             if (parent instanceof ViewGroup) {
                 bannerAd.load((ViewGroup) parent, adConfig.bannerPrefer);
             } else {
@@ -111,20 +108,21 @@ public class SuperAdSdk {
     }
 
     public void resumeBannerAd() {
-        if (adConfig.enableBanner) {
+        if (bannerAd != null) {
             bannerAd.resume();
         }
     }
 
     public void pauseBannerAd() {
-        if (adConfig.enableBanner) {
+        if (bannerAd != null) {
             bannerAd.pause();
         }
     }
 
-    void destroyBannerAd() {
-        if (adConfig.enableBanner) {
+    public void destroyBannerAd() {
+        if (bannerAd != null) {
             bannerAd.destroy();
+            bannerAd = null;
         }
     }
 }

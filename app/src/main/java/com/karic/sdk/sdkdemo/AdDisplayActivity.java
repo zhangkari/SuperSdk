@@ -34,6 +34,7 @@ public class AdDisplayActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        SuperAdSdk.getInstance().destroyBannerAd();
     }
 
     private void initViews() {
