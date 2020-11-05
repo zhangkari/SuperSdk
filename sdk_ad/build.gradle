@@ -7,8 +7,8 @@ def lib = rootProject.ext.lib
 def USER = "zhangkari"
 def GROUP = "com.tomtom.sdk.ad"
 def ARTIFACT = "adsdk"
-def VCode = 10000
-def VName = "1.0.0"
+def VCode = 10001
+def VName = "1.0.1"
 def DESCRIPTION = "An ad sdk integrate both google and facebook"
 def URL = "https://github.com/zhangkari/SuperSdk"
 
