@@ -7,12 +7,11 @@
 
 ## 使用方法:
 ``` java
-implementation 'com.tomtom.sdk.ad:adsdk:1.0.0'
+implementation 'com.tomtom.sdk.ad:adsdk:1.0.1'
 
-AdSdk sdk = new AdSdk.Settings().build();
-sdk.init(context);
-sdk.showSplashAd();
-sdk.showBannerAd();
+SuperAdSdk.init(context, path);
+SuperAdSdk.getInstance().showSplashAd();
+SuperAdSdk.getInstance().showBannerAd();
 
 ```
 ## 支持广告平台:   
@@ -24,5 +23,5 @@ sdk.showBannerAd();
 - **Admob banner广告** 
 
 ## 依赖:   
-- **com.google.android.gms:play-services-ads:17.2.0**
-- **com.facebook.android:audience-network-sdk:5.2.1**
+- **com.google.android.gms:play-services-ads:19.5.0**
+- **com.facebook.android:audience-network-sdk:6.2.0**
