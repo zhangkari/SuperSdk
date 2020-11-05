@@ -23,4 +23,5 @@ dependencies {
     implementation project(path: ':sdk_ad')
 //    implementation 'com.tomtom.sdk.ad:adsdk:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
+
 }

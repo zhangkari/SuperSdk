@@ -1,0 +1,38 @@
+{
+  "enableSplash": true,
+  "enableBanner": true,
+  "enableNative": false,
+  "splashPrefer": "fb",
+  "bannerPrefer": "admob",
+  "nativePrefer": "fb",
+  "splashAd": [
+    {
+      "platform": "admob",
+      "adPosition": "ca-app-pub-3940256099942544/1033173712"
+    },
+    {
+      "platform": "fb",
+      "adPosition": "1629703187173619_1630656080411663"
+    }
+  ],
+  "bannerAd": [
+    {
+      "platform": "admob",
+      "adPosition": "ca-app-pub-3940256099942544/6300978111"
+    },
+    {
+      "platform": "fb",
+      "adPosition": "1423813157761799_1423814991094949"
+    }
+  ],
+  "nativeAd": [
+    {
+      "platform": "admob",
+      "adPosition": "ca-app-pub-3940256099942544/2247696110"
+    },
+    {
+      "platform": "fb",
+      "adPosition": ""
+    }
+  ]
+}

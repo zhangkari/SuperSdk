@@ -1,6 +1,6 @@
 package com.karic.sdk;
 
-public interface AdListener {
+public interface SuperAdListener {
     void onAdLoaded();
 
     void onAdLoadError(int code, String message);

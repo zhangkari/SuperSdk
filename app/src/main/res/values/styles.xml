@@ -5,6 +5,6 @@
         <item name="colorPrimaryDark">#265cfd</item>
         <item name="android:textColorPrimary">#111</item>
         <item name="android:textColorSecondary">#333</item>
-        <item name="android:textColorTertiary">#666</item>
+        <item name="android:textColorTertiary">#333</item>
     </style>
 </resources>

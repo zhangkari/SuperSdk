@@ -5,12 +5,36 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Admob" />
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_area"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btn_get_aaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Get AAID"
+            android:textAllCaps="false" />
+
+        <EditText
+            android:id="@+id/tv_aaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:textColor="#265cfd"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +45,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_admob_splash"
+            android:id="@+id/tv_splash"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -30,7 +54,7 @@
             android:text="Splash" />
 
         <TextView
-            android:id="@+id/tv_admob_banner"
+            android:id="@+id/tv_banner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
@@ -40,7 +64,7 @@
             android:text="Banner" />
 
         <TextView
-            android:id="@+id/tv_admob_native"
+            android:id="@+id/tv_native"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,49 +72,4 @@
             android:padding="12dp"
             android:text="Native" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Facebook" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_area"
-        android:gravity="center"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tv_fb_splash"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="Splash" />
-
-        <TextView
-            android:id="@+id/tv_fb_banner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="Banner" />
-
-        <TextView
-            android:id="@+id/tv_fb_native"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="Native" />
-    </LinearLayout>
-
 </LinearLayout>

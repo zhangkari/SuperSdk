@@ -1,72 +1,62 @@
 package com.karic.sdk;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.karic.sdk.utils.AdUtils;
+import com.karic.sdk.utils.Logger;
 
-public class SplashAd {
-    private static final String TAG = "SplashAd";
-    private AdSdk.Settings settings;
+public class SplashAd extends SuperAd {
     private InterstitialAd admobAd;
     private com.facebook.ads.InterstitialAd fbAd;
 
-    public SplashAd(Context context, AdSdk.Settings settings, AidBox box) {
-        this.settings = settings;
-        if (settings.supportAdmob && Utils.isValidAid(box.admobId)) {
-            admobAd = new InterstitialAd(context);
-            admobAd.setAdUnitId(box.admobId);
-        }
-        if (settings.supportFb && Utils.isValidAid(box.fbId)) {
-            fbAd = new com.facebook.ads.InterstitialAd(context, box.fbId);
-        }
+    public SplashAd(Context context, AidBox box) {
+        admobAd = new InterstitialAd(context);
+        admobAd.setAdUnitId(box.admobId);
+        fbAd = new com.facebook.ads.InterstitialAd(context, box.fbId);
     }
 
     public void load() {
-        load(null, true);
+        load(null, false, null);
     }
 
-    public void load(boolean autoShow) {
-        load(null, autoShow);
+    public void load(boolean autoShow, String prefer) {
+        load(null, autoShow, prefer);
     }
 
-    public void load(AdListener listener, boolean autoShow) {
-        if (settings.admobFirst) {
-            if (admobAd != null) {
-                setAdmobAdListener(admobAd, true, listener, autoShow);
-            } else if (fbAd != null) {
-                setFbAdListener(fbAd, true, listener, autoShow);
-            }
+    public void load(final SuperAdListener listener, final boolean autoShow, String prefer) {
+        if (isAdmobPrefered(prefer)) {
+            loadAdmobAd(listener, autoShow);
         } else {
-            if (fbAd != null) {
-                setFbAdListener(fbAd, true, listener, autoShow);
-            } else if (admobAd != null) {
-                setAdmobAdListener(admobAd, true, listener, autoShow);
-            }
+            loadFbAd(listener, autoShow);
         }
     }
 
-    private void setAdmobAdListener(final InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
-        ad.setAdListener(new com.google.android.gms.ads.AdListener() {
+
+    private void loadAdmobAd(final SuperAdListener listener, final boolean autoShow) {
+        admobAd.setAdListener(new com.google.android.gms.ads.AdListener() {
+            @Override
+            public void onAdClosed() {
+                Logger.d("Admob Splash Ad onAdClosed");
+                loadAdmobAd(listener, autoShow);
+            }
+
             @Override
             public void onAdFailedToLoad(int code) {
-                Log.d(TAG, "admob load failed, code = " + code + ", msg = " + Utils.formatAdmobError(code));
-                if (hasNext) {
-                    if (fbAd != null) {
-                        setFbAdListener(fbAd, false, listener, autoShow);
-                    }
-                } else {
-                    if (listener != null) {
-                        listener.onAdLoadError(code, Utils.formatAdmobError(code));
-                    }
+                Logger.d("Admob Splash Ad load failed, code = " + code + ", msg = " + AdUtils.formatAdmobError(code));
+                if (listener != null) {
+                    listener.onAdLoadError(code, AdUtils.formatAdmobError(code));
                 }
+                loadFbAd(listener, autoShow);
             }
 
             @Override
             public void onAdLoaded() {
+                Logger.d("Admob Splash Ad load success");
+
                 if (autoShow) {
                     admobAd.show();
                 }
@@ -77,42 +67,41 @@ public class SplashAd {
 
             @Override
             public void onAdClicked() {
+                Logger.d("Admob Splash Ad onAdClicked");
+
                 if (listener != null) {
                     listener.onAdClicked();
                 }
             }
         });
-        ad.loadAd(new AdRequest.Builder().build());
+        admobAd.loadAd(new AdRequest.Builder().build());
     }
 
-    private void setFbAdListener(com.facebook.ads.InterstitialAd ad, final boolean hasNext, final AdListener listener, final boolean autoShow) {
-        ad.setAdListener(new InterstitialAdListener() {
+    private void loadFbAd(final SuperAdListener listener, final boolean autoShow) {
+        InterstitialAdListener adListener = new InterstitialAdListener() {
             @Override
             public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
-
+                Logger.d("FB Splash Ad onInterstitialDisplayed");
             }
 
             @Override
             public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
-
+                Logger.d("FB Splash Ad onInterstitialDismissed");
+                loadFbAd(listener, autoShow);
             }
 
             @Override
             public void onError(com.facebook.ads.Ad ad, AdError adError) {
-                Log.d(TAG, "fb load Failed, code = " + adError.getErrorCode() + ", msg = " + adError.getErrorMessage());
-                if (hasNext) {
-                    if (admobAd != null) {
-                        setAdmobAdListener(admobAd, false, listener, autoShow);
-                    }
-                } else {
-                    if (listener != null) {
-                        listener.onAdLoadError(adError.getErrorCode(), adError.getErrorMessage());
-                    }
+                Logger.d("FB Splash Ad load failed, code = " + adError.getErrorCode() + ", msg = " + adError.getErrorMessage());
+                if (listener != null) {
+                    listener.onAdLoadError(adError.getErrorCode(), adError.getErrorMessage());
                 }
+                loadAdmobAd(listener, autoShow);
             }
 
             @Override
             public void onAdLoaded(com.facebook.ads.Ad ad) {
+                Logger.d("FB Splash Ad load success");
                 if (autoShow) {
                     fbAd.show();
                 }
@@ -123,6 +112,7 @@ public class SplashAd {
 
             @Override
             public void onAdClicked(com.facebook.ads.Ad ad) {
+                Logger.d("FB Splash Ad onAdClicked");
                 if (listener != null) {
                     listener.onAdClicked();
                 }
@@ -130,25 +120,21 @@ public class SplashAd {
 
             @Override
             public void onLoggingImpression(com.facebook.ads.Ad ad) {
-
+                Logger.d("FB Splash Ad onLoggingImpression");
             }
-        });
-        fbAd.loadAd();
+        };
+        fbAd.loadAd(
+                fbAd.buildLoadAdConfig()
+                        .withAdListener(adListener)
+                        .build()
+        );
     }
 
     public void show() {
-        if (settings.admobFirst) {
-            if (admobAd != null && admobAd.isLoaded()) {
-                admobAd.show();
-            } else if (fbAd != null && fbAd.isAdLoaded() && !fbAd.isAdInvalidated()) {
-                fbAd.show();
-            }
-        } else {
-            if (fbAd != null && fbAd.isAdLoaded() && !fbAd.isAdInvalidated()) {
-                fbAd.show();
-            } else if (admobAd != null && admobAd.isLoaded()) {
-                admobAd.show();
-            }
+        if (admobAd != null && admobAd.isLoaded()) {
+            admobAd.show();
+        } else if (fbAd != null && fbAd.isAdLoaded() && !fbAd.isAdInvalidated()) {
+            fbAd.show();
         }
     }
 
@@ -158,7 +144,6 @@ public class SplashAd {
             admobAd = null;
         }
         if (fbAd != null) {
-            fbAd.setAdListener(null);
             fbAd.destroy();
             fbAd = null;
         }

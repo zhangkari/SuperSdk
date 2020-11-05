@@ -46,4 +46,5 @@ android {
 dependencies {
     implementation lib.fb_ad_sdk
     implementation lib.play_services_ads
+    implementation lib.gson
 }

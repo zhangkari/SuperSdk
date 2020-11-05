@@ -8,7 +8,8 @@ ext {
     ]
 
     lib = [
-            fb_ad_sdk        : 'com.facebook.android:audience-network-sdk:5.2.1',
+            fb_ad_sdk        : 'com.facebook.android:audience-network-sdk:6.2.0',
             play_services_ads: 'com.google.android.gms:play-services-ads:19.5.0',
+            gson             : 'com.google.code.gson:gson:2.8.6'
     ]
 }

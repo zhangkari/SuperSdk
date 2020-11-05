@@ -7,8 +7,7 @@ import com.google.android.gms.ads.formats.UnifiedNativeAd;
 public class NativeAd {
     private UnifiedNativeAd nativeAd;
 
-    public NativeAd(UnifiedNativeAd data) {
-        nativeAd = data;
+    public NativeAd() {
     }
 
     public String getTitle() {
